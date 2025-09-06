@@ -2,8 +2,14 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Heart, Search, Star, Zap, CheckCircle } from "lucide-react";
-import { FaRupeeSign } from "react-icons/fa";
+import {
+  Heart,
+  Search,
+  Star,
+  Zap,
+  CheckCircle,
+  DollarSign,
+} from "lucide-react";
 
 export default function Landing() {
   const { isLoading } = useAuth();
@@ -233,7 +239,7 @@ export default function Landing() {
             <Card>
               <CardContent className="p-6">
                 <div className="bg-primary w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                  <FaRupeeSign className="w-6 h-6 text-primary-foreground" />
+                  <DollarSign className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Fair Pricing</h3>
                 <p className="text-muted-foreground text-sm">

@@ -29,7 +29,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { insertProductSchema } from "@shared/schema";
-import { Upload, Plus, X, Package, FaRupeeSign, Leaf } from "lucide-react";
+import { Upload, Plus, X, Package, DollarSign, Leaf } from "lucide-react";
 import { z } from "zod";
 
 const sellFormSchema = insertProductSchema.extend({
@@ -348,7 +348,7 @@ export default function Sell() {
                     {/* Pricing */}
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold flex items-center">
-                        <FaRupeeSign className="w-5 h-5 mr-2" />
+                        <DollarSign className="w-5 h-5 mr-2" />
                         Pricing
                       </h3>
 
