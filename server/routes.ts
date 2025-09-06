@@ -6,10 +6,12 @@ import { setupAuth, isAuthenticated } from "./replitAuth";
 import { insertProductSchema, insertReviewSchema } from "@shared/schema";
 import { z } from "zod";
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2023-10-16",
-});
+// Initialize Stripe (only if key is available)
+const stripe = process.env.STRIPE_SECRET_KEY 
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2025-08-27.basil",
+    })
+  : null;
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
@@ -215,6 +217,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Stripe payment routes
   app.post("/api/create-payment-intent", isAuthenticated, async (req: any, res) => {
     try {
+      if (!stripe) {
+        return res.status(503).json({ 
+          message: "Payment processing is not configured. Please contact support." 
+        });
+      }
+
       const userId = req.user.claims.sub;
       const { amount, cartItemIds } = req.body;
       
