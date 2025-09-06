@@ -10,13 +10,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { insertProductSchema } from "@shared/schema";
-import { Upload, Plus, X, Package, DollarSign, Leaf } from "lucide-react";
+import { Upload, Plus, X, Package, FaRupeeSign, Leaf } from "lucide-react";
 import { z } from "zod";
 
 const sellFormSchema = insertProductSchema.extend({
@@ -131,7 +144,7 @@ export default function Sell() {
   };
 
   const removeImageUrl = (url: string) => {
-    const updatedUrls = imageUrls.filter(u => u !== url);
+    const updatedUrls = imageUrls.filter((u) => u !== url);
     setImageUrls(updatedUrls);
     form.setValue("images", updatedUrls);
   };
@@ -163,7 +176,7 @@ export default function Sell() {
             <p className="text-muted-foreground mb-6">
               Please sign in to sell your products on EcoFinds.
             </p>
-            <Button onClick={() => window.location.href = "/api/login"}>
+            <Button onClick={() => (window.location.href = "/api/login")}>
               Sign In
             </Button>
           </div>
@@ -175,7 +188,7 @@ export default function Sell() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Sell Your Items</h1>
@@ -196,11 +209,16 @@ export default function Sell() {
               </CardHeader>
               <CardContent>
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-6"
+                  >
                     {/* Basic Information */}
                     <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Basic Information</h3>
-                      
+                      <h3 className="text-lg font-semibold">
+                        Basic Information
+                      </h3>
+
                       <FormField
                         control={form.control}
                         name="title"
@@ -208,7 +226,7 @@ export default function Sell() {
                           <FormItem>
                             <FormLabel>Product Title *</FormLabel>
                             <FormControl>
-                              <Input 
+                              <Input
                                 placeholder="e.g., Vintage Leather Jacket"
                                 {...field}
                                 data-testid="input-product-title"
@@ -226,7 +244,7 @@ export default function Sell() {
                           <FormItem>
                             <FormLabel>Description *</FormLabel>
                             <FormControl>
-                              <Textarea 
+                              <Textarea
                                 placeholder="Describe your product's condition, features, and why it's sustainable..."
                                 className="min-h-24"
                                 {...field}
@@ -245,7 +263,10 @@ export default function Sell() {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>Category *</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
                                 <FormControl>
                                   <SelectTrigger data-testid="select-product-category">
                                     <SelectValue placeholder="Select category" />
@@ -253,7 +274,10 @@ export default function Sell() {
                                 </FormControl>
                                 <SelectContent>
                                   {categories.map((cat) => (
-                                    <SelectItem key={cat.value} value={cat.value}>
+                                    <SelectItem
+                                      key={cat.value}
+                                      value={cat.value}
+                                    >
                                       {cat.label}
                                     </SelectItem>
                                   ))}
@@ -270,7 +294,10 @@ export default function Sell() {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>Condition *</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
                                 <FormControl>
                                   <SelectTrigger data-testid="select-product-condition">
                                     <SelectValue placeholder="Select condition" />
@@ -278,7 +305,10 @@ export default function Sell() {
                                 </FormControl>
                                 <SelectContent>
                                   {conditions.map((condition) => (
-                                    <SelectItem key={condition.value} value={condition.value}>
+                                    <SelectItem
+                                      key={condition.value}
+                                      value={condition.value}
+                                    >
                                       {condition.label}
                                     </SelectItem>
                                   ))}
@@ -297,13 +327,15 @@ export default function Sell() {
                           <FormItem>
                             <FormLabel>Condition Rating (1-10) *</FormLabel>
                             <FormControl>
-                              <Input 
+                              <Input
                                 type="number"
                                 min="1"
                                 max="10"
                                 placeholder="8"
                                 {...field}
-                                onChange={(e) => field.onChange(parseInt(e.target.value))}
+                                onChange={(e) =>
+                                  field.onChange(parseInt(e.target.value))
+                                }
                                 data-testid="input-condition-rating"
                               />
                             </FormControl>
@@ -316,10 +348,10 @@ export default function Sell() {
                     {/* Pricing */}
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold flex items-center">
-                        <DollarSign className="w-5 h-5 mr-2" />
+                        <FaRupeeSign className="w-5 h-5 mr-2" />
                         Pricing
                       </h3>
-                      
+
                       <div className="grid grid-cols-2 gap-4">
                         <FormField
                           control={form.control}
@@ -328,7 +360,7 @@ export default function Sell() {
                             <FormItem>
                               <FormLabel>Selling Price ($) *</FormLabel>
                               <FormControl>
-                                <Input 
+                                <Input
                                   placeholder="45.00"
                                   {...field}
                                   data-testid="input-selling-price"
@@ -346,7 +378,7 @@ export default function Sell() {
                             <FormItem>
                               <FormLabel>Original Price ($)</FormLabel>
                               <FormControl>
-                                <Input 
+                                <Input
                                   placeholder="120.00"
                                   {...field}
                                   data-testid="input-original-price"
@@ -365,7 +397,7 @@ export default function Sell() {
                         <Leaf className="w-5 h-5 mr-2" />
                         Sustainability Impact
                       </h3>
-                      
+
                       <div className="grid grid-cols-2 gap-4">
                         <FormField
                           control={form.control}
@@ -374,7 +406,7 @@ export default function Sell() {
                             <FormItem>
                               <FormLabel>CO₂ Saved (kg) *</FormLabel>
                               <FormControl>
-                                <Input 
+                                <Input
                                   placeholder="8.5"
                                   {...field}
                                   data-testid="input-carbon-saved"
@@ -392,7 +424,7 @@ export default function Sell() {
                             <FormItem>
                               <FormLabel>Water Saved (L)</FormLabel>
                               <FormControl>
-                                <Input 
+                                <Input
                                   placeholder="2500"
                                   {...field}
                                   data-testid="input-water-saved"
@@ -410,7 +442,10 @@ export default function Sell() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Eco Score *</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
                               <FormControl>
                                 <SelectTrigger data-testid="select-eco-score">
                                   <SelectValue placeholder="Select eco score" />
@@ -418,7 +453,10 @@ export default function Sell() {
                               </FormControl>
                               <SelectContent>
                                 {ecoScores.map((score) => (
-                                  <SelectItem key={score.value} value={score.value}>
+                                  <SelectItem
+                                    key={score.value}
+                                    value={score.value}
+                                  >
                                     {score.label}
                                   </SelectItem>
                                 ))}
@@ -439,7 +477,8 @@ export default function Sell() {
                                 Sustainability Certified
                               </FormLabel>
                               <div className="text-sm text-muted-foreground">
-                                Does this product have official sustainability certifications?
+                                Does this product have official sustainability
+                                certifications?
                               </div>
                             </div>
                             <FormControl>
@@ -457,7 +496,7 @@ export default function Sell() {
                     {/* Images */}
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold">Product Images</h3>
-                      
+
                       <div className="space-y-3">
                         <div className="flex gap-2">
                           <Input
@@ -466,8 +505,8 @@ export default function Sell() {
                             onChange={(e) => setNewImageUrl(e.target.value)}
                             data-testid="input-image-url"
                           />
-                          <Button 
-                            type="button" 
+                          <Button
+                            type="button"
                             onClick={addImageUrl}
                             disabled={!newImageUrl.trim()}
                             data-testid="button-add-image"
@@ -475,13 +514,13 @@ export default function Sell() {
                             <Plus className="w-4 h-4" />
                           </Button>
                         </div>
-                        
+
                         {imageUrls.length > 0 && (
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                             {imageUrls.map((url, index) => (
                               <div key={index} className="relative group">
-                                <img 
-                                  src={url} 
+                                <img
+                                  src={url}
                                   alt={`Product ${index + 1}`}
                                   className="w-full h-24 object-cover rounded border border-border"
                                 />
@@ -502,14 +541,16 @@ export default function Sell() {
                       </div>
                     </div>
 
-                    <Button 
-                      type="submit" 
-                      className="w-full" 
+                    <Button
+                      type="submit"
+                      className="w-full"
                       size="lg"
                       disabled={createProductMutation.isPending}
                       data-testid="button-list-product"
                     >
-                      {createProductMutation.isPending ? "Listing Product..." : "List Product"}
+                      {createProductMutation.isPending
+                        ? "Listing Product..."
+                        : "List Product"}
                     </Button>
                   </form>
                 </Form>
@@ -526,19 +567,24 @@ export default function Sell() {
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
                 <div>
-                  <strong>Take Quality Photos:</strong> Use natural lighting and show multiple angles
+                  <strong>Take Quality Photos:</strong> Use natural lighting and
+                  show multiple angles
                 </div>
                 <div>
-                  <strong>Be Honest:</strong> Accurately describe condition and any flaws
+                  <strong>Be Honest:</strong> Accurately describe condition and
+                  any flaws
                 </div>
                 <div>
-                  <strong>Price Competitively:</strong> Research similar items for fair pricing
+                  <strong>Price Competitively:</strong> Research similar items
+                  for fair pricing
                 </div>
                 <div>
-                  <strong>Highlight Sustainability:</strong> Mention eco-friendly materials or certifications
+                  <strong>Highlight Sustainability:</strong> Mention
+                  eco-friendly materials or certifications
                 </div>
                 <div>
-                  <strong>Respond Quickly:</strong> Answer buyer questions promptly to build trust
+                  <strong>Respond Quickly:</strong> Answer buyer questions
+                  promptly to build trust
                 </div>
               </CardContent>
             </Card>
@@ -556,10 +602,16 @@ export default function Sell() {
                 ) : myProducts && myProducts.length > 0 ? (
                   <div className="space-y-3">
                     {myProducts.slice(0, 3).map((product: any) => (
-                      <div key={product.id} className="flex items-center space-x-3 p-2 border border-border rounded">
+                      <div
+                        key={product.id}
+                        className="flex items-center space-x-3 p-2 border border-border rounded"
+                      >
                         <div className="w-12 h-12 bg-muted rounded" />
                         <div className="flex-1">
-                          <div className="font-medium text-sm line-clamp-1" data-testid={`text-my-product-${product.id}`}>
+                          <div
+                            className="font-medium text-sm line-clamp-1"
+                            data-testid={`text-my-product-${product.id}`}
+                          >
                             {product.title}
                           </div>
                           <div className="text-xs text-muted-foreground">
@@ -571,7 +623,10 @@ export default function Sell() {
                   </div>
                 ) : (
                   <div className="text-center py-4">
-                    <p className="text-sm text-muted-foreground" data-testid="text-no-listings">
+                    <p
+                      className="text-sm text-muted-foreground"
+                      data-testid="text-no-listings"
+                    >
                       No listings yet. Create your first listing above!
                     </p>
                   </div>
